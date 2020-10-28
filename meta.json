@@ -1,0 +1,19 @@
+{
+    "licenseType" : "CC BY-SA",
+    "creatorName" : "SteelyDan",
+    "packageName" : "DtAudio",
+    "includeVersionsInReferences" : "true",
+    "description" : "",
+    "credits" : "",
+    "instructions" : "",
+    "promotionalLink" : "https://github.com/SteelyDan/DtAudio",
+    "programVersion" : "1.19.0.5",
+    "contentList" : [
+        "Custom\\Scripts\\SteelyDan\\DtAudio\\DtAudio.cslist",
+        "Custom\\Scripts\\SteelyDan\\DtAudio\\src\\DtAudio.cs",
+        "Custom\\Scripts\\SteelyDan\\DtAudio\\src\\Pair.cs"
+    ],
+    "dependencies": {
+
+    }
+}
