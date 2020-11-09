@@ -144,7 +144,7 @@ namespace SteelyDan
 
         private void MouthTriggerActionEndCallback()
         {
-            AudioClipCollection collection = _audioClipCollections.Find(x => x.Name == _audioClipClassMouth);
+            AudioClipCollection collection = _audioClipCollections.Find(x => x.Name == _audioClipClassSlurp);
             int index = UnityEngine.Random.Range(0, collection.AudioClips.Count);
             var audioClip = collection.AudioClips[index];
             SuperController.LogMessage($"{_audioClipClassSlurp} {audioClip.displayName}");
