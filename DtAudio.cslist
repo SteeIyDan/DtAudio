@@ -1,2 +1,3 @@
+src/AudioClipCollection.cs
 src/Pair.cs
 src/DtAudio.cs

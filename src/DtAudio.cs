@@ -14,8 +14,16 @@ namespace SteelyDan
 
         private AudioSourceControl _audioSource;
 
-        private List<NamedAudioClip> _audioClips;
-        private readonly List<string> _audioClipTypeNames = new List<string>() { "Throat" };
+        private static readonly string _audioClipClassThroat = "Throat";
+        private static readonly string _audioClipClassMouth = "Mouth";
+        private static readonly string _audioClipClassBreatheMouth = "BreatheMouth";
+        private static readonly string _audioClipClassSlurp = "Slurp";
+        private static readonly string _audioClipClassLipSmack = "LipSmack";
+        private static readonly string _audioClipClassBreatheOutside = "BreatheOutside";
+        private readonly List<AudioClipCollection> _audioClipCollections = new List<AudioClipCollection> 
+        { 
+            _audioClipClassThroat, _audioClipClassMouth, _audioClipClassBreatheMouth, _audioClipClassSlurp, _audioClipClassLipSmack, _audioClipClassBreatheOutside 
+        };
         
         public override void Init()
         {
@@ -25,8 +33,6 @@ namespace SteelyDan
             _startActionReceiverTargets = new List<string>();
             _endActionReceiverTargets = new List<string>();
             _triggerActions = new List<Pair<TriggerActionDiscrete, TriggerActionDiscrete>>();
-
-            _audioClips = new List<NamedAudioClip>();
 
             var atom = GetContainingAtom();
 
@@ -89,11 +95,11 @@ namespace SteelyDan
 
         private void SetupAudioClips(string voiceProfile)
         {
-            foreach(string clipTypeName in _audioClipTypeNames)
+            foreach(AudioClipCollection collection in _audioClipCollections)
             {
-                foreach(string file in SuperController.singleton.GetFilesAtPath($"Custom\\Sounds\\SteelyDan\\DtAudio\\{voiceProfile}\\{clipTypeName}"))
+                foreach(string file in SuperController.singleton.GetFilesAtPath($"Custom\\Sounds\\SteelyDan\\DtAudio\\{voiceProfile}\\{collection.Name}"))
                 {
-                    _audioClips.Add(LoadAudio(file));
+                    collection.AudioClips.Add(LoadAudio(file));
                 }
             }
         }
@@ -129,19 +135,28 @@ namespace SteelyDan
 
         private void MouthTriggerActionStartCallback()
         {
-
+            AudioClipCollection collection = _audioClipCollections.Find(x => x.Name == _audioClipClassMouth);
+            int index = UnityEngine.Random.Range(0, collection.AudioClips.Count);
+            var audioClip = collection.AudioClips[index];
+            SuperController.LogMessage($"{_audioClipClassMouth} {audioClip.displayName}");
+            _audioSource.PlayNow(audioClip);
         }
 
         private void MouthTriggerActionEndCallback()
         {
-
+            AudioClipCollection collection = _audioClipCollections.Find(x => x.Name == _audioClipClassMouth);
+            int index = UnityEngine.Random.Range(0, collection.AudioClips.Count);
+            var audioClip = collection.AudioClips[index];
+            SuperController.LogMessage($"{_audioClipClassSlurp} {audioClip.displayName}");
+            _audioSource.PlayNow(audioClip);
         }
 
         private void ThroatTriggerActionStartCallback()
         {
-            int index = UnityEngine.Random.Range(0, _audioClips.Count);
-            var audioClip = _audioClips[index];
-            SuperController.LogMessage($"{index}");
+            AudioClipCollection collection = _audioClipCollections.Find(x => x.Name == _audioClipClassThroat);
+            int index = UnityEngine.Random.Range(0, collection.AudioClips.Count);
+            var audioClip = collection.AudioClips[index];
+            SuperController.LogMessage($"{_audioClipClassThroat} {audioClip.displayName}");
             _audioSource.PlayNow(audioClip);
         }
 
