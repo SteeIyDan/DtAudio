@@ -20,7 +20,7 @@ namespace SteelyDan
         private static readonly string _audioClipClassSlurp = "Slurp";
         private static readonly string _audioClipClassLipSmack = "LipSmack";
         private static readonly string _audioClipClassBreatheOutside = "BreatheOutside";
-        private readonly List<AudioClipCollection> _audioClipCollections = new List<AudioClipCollection> 
+        private List<AudioClipCollection> _audioClipCollections = new List<AudioClipCollection> 
         { 
             _audioClipClassThroat, _audioClipClassMouth, _audioClipClassBreatheMouth, _audioClipClassSlurp, _audioClipClassLipSmack, _audioClipClassBreatheOutside 
         };
@@ -97,10 +97,16 @@ namespace SteelyDan
         {
             foreach(AudioClipCollection collection in _audioClipCollections)
             {
-                foreach(string file in SuperController.singleton.GetFilesAtPath($"Custom\\Sounds\\SteelyDan\\DtAudio\\{voiceProfile}\\{collection.Name}"))
+                foreach(string directory in SuperController.singleton.GetDirectoriesAtPath($"Custom\\Sounds\\SteelyDan\\DtAudio\\{voiceProfile}"))
                 {
-                    collection.AudioClips.Add(LoadAudio(file));
+                    if(collection.Name != directory.Split('\\')[directory.Split('\\').ToList().Count - 1]) continue;
+                    foreach(string file in SuperController.singleton.GetFilesAtPath($"Custom\\Sounds\\SteelyDan\\DtAudio\\{voiceProfile}\\{collection.Name}"))
+                    {
+                        SuperController.LogMessage($"{collection.Name}, {file}");
+                        collection.AudioClips.Add(LoadAudio(file));
+                    }
                 }
+                
             }
         }
 
