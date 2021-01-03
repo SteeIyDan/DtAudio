@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="src/AudioClipCollection.cs" />
     <Compile Include="src/Pair.cs" />
+    <Compile Include="src/Stamina.cs" />
     <Compile Include="src/DtAudio.cs" />
   </ItemGroup>
 

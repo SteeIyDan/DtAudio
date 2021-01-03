@@ -1,3 +1,4 @@
 src/AudioClipCollection.cs
 src/Pair.cs
+src/Stamina.cs
 src/DtAudio.cs
